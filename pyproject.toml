@@ -1,0 +1,23 @@
+[project]
+name = "mail-dispatch"
+version = "0.1.0"
+description = "Modular email provider system"
+authors = [
+    {name = "Murairi",email = "emmamurairi@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jinja2>=3.0.0",
+    "sendgrid>=6.0.0",
+    "azure-communication-email>=1.0.0",
+    "boto3>=1.0.0",
+    "google-cloud-pubsub>=2.0.0",
+]
+
+[tool.poetry]
+packages = [{include = "email_providers", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
