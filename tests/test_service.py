@@ -1,42 +1,17 @@
 import unittest
-import asyncio
+from unittest import mock
 from unittest.mock import patch, MagicMock
-from typing import Dict, Any
 
-from app.api.core.config import settings
-from app.api.services.email_providers.base import TemplateRenderer
-from app.api.services.email_service import create_email_service
+from src.email_providers import create_email_service, TemplateRenderer
+from tests.base import BaseEmailServiceTest
 
-
-class BaseEmailServiceTest(unittest.TestCase):
-    """Base class for email service tests. Does not run any tests itself."""
-
-    # This will be overridden by subclasses
-    CONFIG: Dict[str, Any] = {}
-
-    # Provider name to be set by subclasses
-    PROVIDER_NAME = "base"
-
-
-    def setUp(self):
-        """Set up test environment."""
-        self.template_renderer = TemplateRenderer()
-
-        # Create the email service with the provider-specific config
-        self.email_service = create_email_service(self.CONFIG)
-
-    def tearDown(self):
-        """Clean up after tests."""
-        pass
-
-    def run_async(self, coroutine):
-        """Helper method to run an async function in a unittest test."""
-        return asyncio.run(coroutine)
+settings = mock.Mock()
 
 
 class TemplateRendererTest(unittest.TestCase):
     """Test for the template renderer."""
 
+    # TODO: the examples here should be general purpose and about test. work_order is too specific to a usecase
     def test_template_renderer(self):
         """Test template rendering."""
         renderer = TemplateRenderer()
@@ -60,6 +35,8 @@ class TemplateRendererTest(unittest.TestCase):
         self.assertIn('https://test.com', html)
 
 
+# TODO: the tests here should be moved to the BaseServiceTest. This class should only provide
+#  the configuration, and use the tests written in  BaseServiceTest.
 class SendGridEmailServiceTest(BaseEmailServiceTest):
     """Test SendGrid email provider."""
 
@@ -150,7 +127,6 @@ class SendGridEmailServiceTest(BaseEmailServiceTest):
             "EMAIL_DEFAULT_FROM_EMAIL": settings.EMAIL_DEFAULT_FROM_EMAIL
         }
 
-        # Create a new service with the real config
         email_service = create_email_service(integration_config)
 
         # Run the test
@@ -189,10 +165,7 @@ class SendGridEmailServiceTest(BaseEmailServiceTest):
                 to_emails=[settings.EMAIL_DEFAULT_TEST_RECIPIENT],
                 template_name="work_order_notification",
                 template_data={
-                    'work_order_id': 123,
-                    'status': 'In Progress',
-                    'description': 'Integration Test',
-                    'assigned_to': 'Tester'
+
                 }
             )
         )

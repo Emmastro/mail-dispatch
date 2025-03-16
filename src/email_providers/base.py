@@ -1,12 +1,8 @@
-import logging
 from pathlib import Path
 from typing import Dict, Any, Optional
 
 import jinja2
 from fastapi import HTTPException
-
-# TODO: need a better way to manager logger accross diffirent modules.
-logger = logging.getLogger(__name__)
 
 
 class TemplateRenderer:
@@ -80,21 +76,10 @@ class BaseEmailProvider:
         """
         self.template_renderer = template_renderer
 
-    def _get_default_subject(self, template_name: str, template_data: Dict[str, Any]) -> str:
+    def _get_default_subject(self) -> str:
         """Get default subject based on template name and data.
-
-        Args:
-            template_name: Name of the template
-            template_data: Template data
-
-        Returns:
-            Default subject string
         """
-        if template_name == "work_order_notification":
-            return f"Work Order #{template_data.get('work_order_id')} Update"
-        elif template_name == "user_invitation":
-            return f"Invitation to join Deraint CMMS"
-        return "Notification from Deraint CMMS"
+        return "Default subject"
 
     @classmethod
     def from_config(cls, template_renderer: TemplateRenderer, config: Dict[str, Any]) -> 'BaseEmailProvider':

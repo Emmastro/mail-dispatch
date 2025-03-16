@@ -13,6 +13,7 @@ dependencies = [
     "azure-communication-email>=1.0.0",
     "boto3>=1.0.0",
     "google-cloud-pubsub>=2.0.0",
+    "fastapi (>=0.115.11,<0.116.0)",
 ]
 
 [tool.poetry]

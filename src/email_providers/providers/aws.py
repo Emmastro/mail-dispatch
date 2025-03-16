@@ -6,8 +6,7 @@ from pydantic import EmailStr
 import boto3
 from botocore.exceptions import ClientError
 
-from app.api.services.email_providers.base import BaseEmailProvider, TemplateRenderer, logger
-
+from src.email_providers import BaseEmailProvider, TemplateRenderer, logger
 
 class AWSEmailProvider(BaseEmailProvider):
     """Email service using AWS SES."""
@@ -169,7 +168,7 @@ class AWSEmailProvider(BaseEmailProvider):
         """
         html_content = self.template_renderer.render_template(template_name, template_data)
         if not subject:
-            subject = self._get_default_subject(template_name, template_data)
+            subject = self._get_default_subject()
 
         return await self.send_email(
             to_emails=to_emails,
