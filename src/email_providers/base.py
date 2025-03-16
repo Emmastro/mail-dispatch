@@ -16,12 +16,11 @@ class TemplateRenderer:
         """
         if template_dir is None:
             # TODO: need a better implementation for this.
-            template_dir = Path(__file__).parent.parent.parent.parent / "templates" / "emails"
+            template_dir = Path(__file__).parent / "templates" / "emails"
 
         # Create the directory if it doesn't exist
         template_dir.mkdir(parents=True, exist_ok=True)
 
-        print("template_dir: ", template_dir)
         # Set up Jinja2 environment
         self.env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(template_dir),

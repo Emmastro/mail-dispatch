@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ subject }}</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="email-container">
+        <header>
+            <h1>{{ subject }}</h1>
+        </header>
+        
+        <main>
+            <p>Hello {{ recipient_name }},</p>
+            
+            <p>{{ message }}</p>
+            
+            {% if action_required %}
+            <div class="action-button">
+                <a href="{{ action_url }}">{{ action_text }}</a>
+            </div>
+            {% endif %}
+            
+            <p>If you have any questions, please contact us.</p>
+        </main>
+        
+        <footer>
+            <p>&copy; {{ current_year }} Your Company. All rights reserved.</p>
+            <p>123 Main Street, Anytown, AN 12345</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+<!-- src/templates/samples/notification.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ subject }}</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="email-container">
+        <header>
+            <h1>{{ subject }}</h1>
+        </header>
+        
+        <main>
+            <p>{{ message }}</p>
+            
+            {% if details %}
+            <div class="details">
+                <h2>Details:</h2>
+                <ul>
+                {% for key, value in details.items() %}
+                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            {% if action_url %}
+            <div class="action-button">
+                <a href="{{ action_url }}">{{ action_text|default('Take Action') }}</a>
+            </div>
+            {% endif %}
+        </main>
+        
+        <footer>
+            <p>This is an automated notification. Please do not reply to this email.</p>
+            <p>&copy; {{ current_year|default(2025) }} Your Company</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+<!-- src/templates/samples/welcome.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to {{ company_name }}</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="email-container">
+        <header>
+            <h1>Welcome to {{ company_name }}!</h1>
+        </header>
+        
+        <main>
+            <p>Hello {{ user_name }},</p>
+            
+            <p>Thank you for joining {{ company_name }}. We're excited to have you on board!</p>
+            
+            <p>Your account has been successfully created and is ready to use.</p>
+            
+            <div class="action-button">
+                <a href="{{ login_url }}">Login to Your Account</a>
+            </div>
+            
+            <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+        </main>
+        
+        <footer>
+            <p>&copy; {{ current_year|default(2025) }} {{ company_name }}. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

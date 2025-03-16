@@ -7,7 +7,10 @@ from pydantic import EmailStr
 from python_http_client import HTTPError
 from sendgrid import Email, To, Content, Mail, Attachment as SGAttachment
 
-from src.email_providers import BaseEmailProvider, TemplateRenderer, logger
+from src.email_providers.base import BaseEmailProvider, TemplateRenderer
+import logging
+
+logger = logging.getLogger(__name__)
 
 class SendGridEmailProvider(BaseEmailProvider):
     """Email service using SendGrid."""

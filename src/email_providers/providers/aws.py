@@ -6,7 +6,15 @@ from pydantic import EmailStr
 import boto3
 from botocore.exceptions import ClientError
 
-from src.email_providers import BaseEmailProvider, TemplateRenderer, logger
+from src.email_providers.base import BaseEmailProvider, TemplateRenderer
+import logging
+
+logger = logging.getLogger(__name__)
+
+from dotenv import load_dotenv
+
+# Load environment variables at module level
+load_dotenv()
 
 class AWSEmailProvider(BaseEmailProvider):
     """Email service using AWS SES."""

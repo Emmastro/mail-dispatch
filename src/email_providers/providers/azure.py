@@ -4,7 +4,10 @@ from azure.communication.email import EmailClient
 from fastapi import HTTPException
 from pydantic import EmailStr
 
-from src.email_providers import BaseEmailProvider, TemplateRenderer, logger
+from src.email_providers.base import BaseEmailProvider, TemplateRenderer
+import logging
+
+logger = logging.getLogger(__name__)
 
 class AzureEmailProvider(BaseEmailProvider):
     """Email service using Azure Communication Services."""

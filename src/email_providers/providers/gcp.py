@@ -7,7 +7,10 @@ from pydantic import EmailStr
 
 from google.cloud import pubsub_v1
 
-from src.email_providers import BaseEmailProvider, TemplateRenderer, logger
+from src.email_providers.base import BaseEmailProvider, TemplateRenderer
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 
