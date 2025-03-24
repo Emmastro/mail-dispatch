@@ -1,13 +1,21 @@
 from typing import Dict, Any, List, Optional
+import logging
 
 from azure.communication.email import EmailClient
 from fastapi import HTTPException
 from pydantic import EmailStr
 
-from src.email_providers.base import BaseEmailProvider, TemplateRenderer
-import logging
+from email_providers.base import BaseEmailProvider, TemplateRenderer
+from email_providers.models import BaseEmailConfig
 
 logger = logging.getLogger(__name__)
+
+class AzureConfig(BaseEmailConfig):
+    """Configuration for Azure Communication Services email provider."""
+    EMAIL_PROVIDER: str = "azure"
+    AZURE_COMMUNICATION_CONNECTION_STRING: str
+    AZURE_SENDER_EMAIL: EmailStr
+
 
 class AzureEmailProvider(BaseEmailProvider):
     """Email service using Azure Communication Services."""
@@ -36,7 +44,7 @@ class AzureEmailProvider(BaseEmailProvider):
             self.client = None
 
     @classmethod
-    def from_config(cls, template_renderer: TemplateRenderer, config: Dict[str, Any]) -> 'AzureEmailProvider':
+    def from_config(cls, template_renderer: TemplateRenderer, config: AzureConfig) -> 'AzureEmailProvider':
         """Create an instance from configuration dictionary.
 
         Args:

@@ -1,5 +1,6 @@
 import base64
 from typing import Dict, Any, List, Optional
+import logging
 
 import sendgrid
 from fastapi import HTTPException
@@ -7,10 +8,17 @@ from pydantic import EmailStr
 from python_http_client import HTTPError
 from sendgrid import Email, To, Content, Mail, Attachment as SGAttachment
 
-from src.email_providers.base import BaseEmailProvider, TemplateRenderer
-import logging
+from email_providers.base import BaseEmailProvider, TemplateRenderer
+from email_providers.models import BaseEmailConfig
+
 
 logger = logging.getLogger(__name__)
+
+class SendGridConfig(BaseEmailConfig):
+    """Configuration for SendGrid email provider."""
+    EMAIL_PROVIDER: str = "sendgrid"
+    EMAIL_SENDGRID_API_KEY: str
+    EMAIL_DEFAULT_FROM_EMAIL: EmailStr
 
 class SendGridEmailProvider(BaseEmailProvider):
     """Email service using SendGrid."""
@@ -39,7 +47,7 @@ class SendGridEmailProvider(BaseEmailProvider):
             self.client = None
 
     @classmethod
-    def from_config(cls, template_renderer: TemplateRenderer, config: Dict[str, Any]) -> 'SendGridEmailProvider':
+    def from_config(cls, template_renderer: TemplateRenderer, config: SendGridConfig) -> 'SendGridEmailProvider':
         """Create an instance from configuration dictionary.
         # TODO: the config Dict should be a pydantic basemodel and require all relevant fields.
         Args:

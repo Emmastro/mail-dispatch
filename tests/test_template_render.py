@@ -4,7 +4,7 @@ import datetime
 
 from fastapi import HTTPException
 
-from src.email_providers import TemplateRenderer
+from email_providers import TemplateRenderer
 
 
 class TemplateRendererTest(unittest.TestCase):

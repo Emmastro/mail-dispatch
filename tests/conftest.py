@@ -7,7 +7,7 @@ import os
 import pytest
 from pathlib import Path
 
-from src.email_providers import TemplateRenderer
+from email_providers import TemplateRenderer
 
 
 @pytest.fixture

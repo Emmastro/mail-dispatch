@@ -2,7 +2,7 @@ import unittest
 from unittest import mock
 from unittest.mock import patch, MagicMock
 
-from src.email_providers import create_email_service, TemplateRenderer
+from email_providers import create_email_service, TemplateRenderer
 from tests.base import BaseEmailServiceTest
 
 settings = mock.Mock()

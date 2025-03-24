@@ -5,7 +5,7 @@ from unittest.mock import patch, MagicMock
 
 from pydantic import EmailStr
 
-from src.email_providers import TemplateRenderer, create_email_service
+from email_providers import TemplateRenderer, create_email_service
 
 
 class BaseEmailServiceTest(unittest.TestCase):

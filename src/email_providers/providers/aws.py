@@ -1,20 +1,29 @@
 from typing import Optional, Dict, Any, List
-
+import logging
 from fastapi import HTTPException
 from pydantic import EmailStr
 
 import boto3
 from botocore.exceptions import ClientError
 
-from src.email_providers.base import BaseEmailProvider, TemplateRenderer
-import logging
+from email_providers.base import BaseEmailProvider, TemplateRenderer
+
+from email_providers.models import BaseEmailConfig
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-from dotenv import load_dotenv
-
-# Load environment variables at module level
 load_dotenv()
+
+
+class AWSConfig(BaseEmailConfig):
+    """Configuration for AWS SES email provider."""
+    EMAIL_PROVIDER: str = "aws"
+    AWS_REGION: str = "us-east-1"
+    AWS_ACCESS_KEY_ID: Optional[str] = None
+    AWS_SECRET_ACCESS_KEY: Optional[str] = None
+    AWS_SENDER_EMAIL: EmailStr
+
 
 class AWSEmailProvider(BaseEmailProvider):
     """Email service using AWS SES."""
@@ -55,7 +64,7 @@ class AWSEmailProvider(BaseEmailProvider):
             self.client = None
 
     @classmethod
-    def from_config(cls, template_renderer: TemplateRenderer, config: Dict[str, Any]) -> 'AWSEmailProvider':
+    def from_config(cls, template_renderer: TemplateRenderer, config: AWSConfig) -> 'AWSEmailProvider':
         """Create an instance from configuration dictionary.
 
         Args:

@@ -57,7 +57,7 @@ class SendGridEmailServiceTest(BaseEmailServiceTest):
         if not integration_config:
             self.skipTest("SendGrid API key is not set")
 
-        from src.email_providers import create_email_service
+        from email_providers import create_email_service
         email_service = create_email_service(integration_config)
 
         result = self.run_async(

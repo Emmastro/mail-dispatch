@@ -1,5 +1,6 @@
 import base64
 import json
+import logging
 from typing import Optional, Dict, Any, List
 
 from fastapi import HTTPException
@@ -7,11 +8,18 @@ from pydantic import EmailStr
 
 from google.cloud import pubsub_v1
 
-from src.email_providers.base import BaseEmailProvider, TemplateRenderer
-import logging
+from email_providers.base import BaseEmailProvider, TemplateRenderer
+from email_providers.models import BaseEmailConfig
 
 logger = logging.getLogger(__name__)
 
+class GCPConfig(BaseEmailConfig):
+    """Configuration for Google Cloud Pub/Sub email provider."""
+    EMAIL_PROVIDER: str = "gcp"
+    GCP_PROJECT_ID: str
+    GCP_PUBSUB_EMAIL_TOPIC: str = "email-notifications"
+    GCP_SENDER_EMAIL: EmailStr
+    GCP_SERVICE_ACCOUNT_JSON: Optional[str] = None
 
 
 class GCPEmailProvider(BaseEmailProvider):
@@ -50,7 +58,7 @@ class GCPEmailProvider(BaseEmailProvider):
             self.publisher = None
 
     @classmethod
-    def from_config(cls, template_renderer: TemplateRenderer, config: Dict[str, Any]) -> 'GCPEmailProvider':
+    def from_config(cls, template_renderer: TemplateRenderer, config: GCPConfig) -> 'GCPEmailProvider':
         """Create an instance from configuration dictionary.
 
         Args:
