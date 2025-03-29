@@ -19,10 +19,10 @@ load_dotenv()
 class AWSConfig(BaseEmailConfig):
     """Configuration for AWS SES email provider."""
     EMAIL_PROVIDER: str = "aws"
+
     AWS_REGION: str = "us-east-1"
     AWS_ACCESS_KEY_ID: Optional[str] = None
     AWS_SECRET_ACCESS_KEY: Optional[str] = None
-    AWS_SENDER_EMAIL: EmailStr
 
 
 class AWSEmailProvider(BaseEmailProvider):
@@ -79,7 +79,7 @@ class AWSEmailProvider(BaseEmailProvider):
             aws_region=config.get("AWS_REGION", "us-east-1"),
             aws_access_key_id=config.get("AWS_ACCESS_KEY_ID"),
             aws_secret_access_key=config.get("AWS_SECRET_ACCESS_KEY"),
-            sender_email=config.get("AWS_SENDER_EMAIL", "")
+            sender_email=config.get("EMAIL_DEFAULT_FROM_EMAIL", "")
         )
 
     async def send_email(

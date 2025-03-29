@@ -18,7 +18,6 @@ class GCPConfig(BaseEmailConfig):
     EMAIL_PROVIDER: str = "gcp"
     GCP_PROJECT_ID: str
     GCP_PUBSUB_EMAIL_TOPIC: str = "email-notifications"
-    GCP_SENDER_EMAIL: EmailStr
     GCP_SERVICE_ACCOUNT_JSON: Optional[str] = None
 
 
@@ -72,7 +71,7 @@ class GCPEmailProvider(BaseEmailProvider):
             template_renderer=template_renderer,
             project_id=config.get("GCP_PROJECT_ID", ""),
             topic_name=config.get("GCP_PUBSUB_EMAIL_TOPIC", ""),
-            sender_email=config.get("GCP_SENDER_EMAIL", ""),
+            sender_email=config.get("EMAIL_DEFAULT_FROM_EMAIL", ""),
             service_account_json=config.get("GCP_SERVICE_ACCOUNT_JSON")
         )
 

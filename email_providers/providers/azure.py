@@ -14,7 +14,6 @@ class AzureConfig(BaseEmailConfig):
     """Configuration for Azure Communication Services email provider."""
     EMAIL_PROVIDER: str = "azure"
     AZURE_COMMUNICATION_CONNECTION_STRING: str
-    AZURE_SENDER_EMAIL: EmailStr
 
 
 class AzureEmailProvider(BaseEmailProvider):
@@ -57,7 +56,7 @@ class AzureEmailProvider(BaseEmailProvider):
         return cls(
             template_renderer=template_renderer,
             connection_string=config.get("AZURE_COMMUNICATION_CONNECTION_STRING", ""),
-            sender_address=config.get("AZURE_SENDER_EMAIL", "")
+            sender_address=config.get("EMAIL_DEFAULT_FROM_EMAIL", "")
         )
 
     async def send_email(

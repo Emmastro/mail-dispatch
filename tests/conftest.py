@@ -49,16 +49,13 @@ def mock_settings():
         AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
         AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
         AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-        AWS_SENDER_EMAIL = os.environ.get("AWS_SENDER_EMAIL", "noreply@example.com")
 
         # Azure settings
         AZURE_COMMUNICATION_CONNECTION_STRING = os.environ.get("AZURE_COMMUNICATION_CONNECTION_STRING", "")
-        AZURE_SENDER_EMAIL = os.environ.get("AZURE_SENDER_EMAIL", "noreply@example.com")
 
         # GCP settings
         GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID", "")
         GCP_PUBSUB_EMAIL_TOPIC = os.environ.get("GCP_PUBSUB_EMAIL_TOPIC", "email-notifications")
-        GCP_SENDER_EMAIL = os.environ.get("GCP_SENDER_EMAIL", "noreply@example.com")
         GCP_SERVICE_ACCOUNT_JSON = os.environ.get("GCP_SERVICE_ACCOUNT_JSON", "")
 
     return Settings()

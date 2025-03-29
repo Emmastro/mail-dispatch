@@ -93,7 +93,7 @@ class AWSEmailServiceTest(BaseEmailServiceTest):
         "AWS_REGION": "us-east-1",
         "AWS_ACCESS_KEY_ID": "test_access_key",
         "AWS_SECRET_ACCESS_KEY": "test_secret_key",
-        "AWS_SENDER_EMAIL": "test@example.com"
+        "EMAIL_DEFAULT_FROM_EMAIL": "test@example.com"
     }
 
     def setup_integration_test_config(self):
@@ -109,7 +109,7 @@ class AWSEmailServiceTest(BaseEmailServiceTest):
             "AWS_REGION": settings.AWS_REGION,
             "AWS_ACCESS_KEY_ID": settings.AWS_ACCESS_KEY_ID,
             "AWS_SECRET_ACCESS_KEY": settings.AWS_SECRET_ACCESS_KEY,
-            "AWS_SENDER_EMAIL": settings.AWS_SENDER_EMAIL
+            "EMAIL_DEFAULT_FROM_EMAIL": settings.EMAIL_DEFAULT_FROM_EMAIL
         }
 
 
@@ -135,7 +135,7 @@ class AzureEmailServiceTest(BaseEmailServiceTest):
     CONFIG = {
         "EMAIL_PROVIDER": "azure",
         "AZURE_COMMUNICATION_CONNECTION_STRING": "test_connection_string",
-        "AZURE_SENDER_EMAIL": "test@example.com"
+        "EMAIL_DEFAULT_FROM_EMAIL": "test@example.com"
     }
 
     def setup_integration_test_config(self):
@@ -150,7 +150,7 @@ class AzureEmailServiceTest(BaseEmailServiceTest):
         return {
             "EMAIL_PROVIDER": "azure",
             "AZURE_COMMUNICATION_CONNECTION_STRING": settings.AZURE_COMMUNICATION_CONNECTION_STRING,
-            "AZURE_SENDER_EMAIL": settings.AZURE_SENDER_EMAIL
+            "EMAIL_DEFAULT_FROM_EMAIL": settings.EMAIL_DEFAULT_FROM_EMAIL
         }
 
 
@@ -196,7 +196,7 @@ class GCPEmailServiceTest(BaseEmailServiceTest):
         "EMAIL_PROVIDER": "gcp",
         "GCP_PROJECT_ID": "test-project",
         "GCP_PUBSUB_EMAIL_TOPIC": "test-topic",
-        "GCP_SENDER_EMAIL": "test@example.com"
+        "EMAIL_DEFAULT_FROM_EMAIL": "test@example.com"
     }
 
     def setup_integration_test_config(self):
@@ -211,6 +211,6 @@ class GCPEmailServiceTest(BaseEmailServiceTest):
             "EMAIL_PROVIDER": "gcp",
             "GCP_PROJECT_ID": settings.GCP_PROJECT_ID,
             "GCP_PUBSUB_EMAIL_TOPIC": settings.GCP_PUBSUB_EMAIL_TOPIC,
-            "GCP_SENDER_EMAIL": settings.GCP_SENDER_EMAIL,
+            "EMAIL_DEFAULT_FROM_EMAIL": settings.EMAIL_DEFAULT_FROM_EMAIL,
             "GCP_SERVICE_ACCOUNT_JSON": settings.GCP_SERVICE_ACCOUNT_JSON
         }
