@@ -1,26 +1,24 @@
-[project]
+[tool.poetry]
 name = "mail-dispatch"
 version = "0.1.0"
 description = "Modular email provider system"
-authors = [
-    {name = "Murairi",email = "emmamurairi@gmail.com"}
-]
+authors = ["Murairi <emmamurairi@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-    "jinja2>=3.0.0",
-    "sendgrid>=6.0.0",
-    "azure-communication-email>=1.0.0",
-    "boto3>=1.0.0",
-    "google-cloud-pubsub>=2.0.0",
-    "fastapi (>=0.115.11,<0.116.0)",
-    "python-dotenv>=1.0.0",
-    "pytest (>=8.3.5,<9.0.0)",
-    "pydantic[email] (>=2.10.6,<3.0.0)",
-]
+packages = [{include = "email_providers"}]
 
-[tool.poetry]
-packages = [{include = "email_providers", from = "src"}]
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+jinja2 = ">=3.0.0"
+sendgrid = ">=6.0.0"
+azure-communication-email = ">=1.0.0"
+boto3 = ">=1.0.0"
+google-cloud-pubsub = ">=2.0.0"
+fastapi = ">=0.115.11,<0.116.0"
+pydantic = {version = ">=2.10.6,<3.0.0", extras = ["email"]}
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.3.5,<9.0.0"
+python-dotenv = ">=0.9.9"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
